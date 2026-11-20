@@ -1,0 +1,6 @@
+Console.WriteLine(Greeter.Greet("pricing"));
+
+public static class Greeter
+{
+    public static string Greet(string name) => $"Hello, {name}!";
+}
