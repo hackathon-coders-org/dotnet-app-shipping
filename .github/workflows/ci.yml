@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    if: false  # fixture: disabled so no Actions run is consumed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore
+        run: dotnet restore PricingApi.sln
+      - name: Build
+        run: dotnet build PricingApi.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test PricingApi.sln --configuration Release --no-build
+      - name: Publish
+        run: dotnet publish src/PricingApi/PricingApi.csproj --configuration Release -o publish
